@@ -1,0 +1,28 @@
+{
+  "name": "jslaunchpad",
+  "version": "1.0.0",
+  "description": "JS using Novation Launchpad.",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "npm run build",
+    "server": "webpack-dev-server --color",
+    "build": "webpack --config webpack.config.js"
+  },
+  "author": "David Correa",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "apply-loader": "2.0.0",
+    "babel-loader": "8.0.0",
+    "css-loader": "^0.28.11",
+    "html-loader": "0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "0.4.1",
+    "node-sass": "4.9.3",
+    "sass-loader": "7.1.0",
+    "webpack": "4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.5"
+  }
+}
