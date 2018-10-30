@@ -4,9 +4,9 @@
   "description": "JS using Novation Launchpad.",
   "main": "index.js",
   "scripts": {
-    "postinstall": "npm run build",
-    "server": "webpack-dev-server --color",
-    "build": "webpack --config webpack.config.js"
+    "serve": "webpack-dev-server --color",
+    "build": "webpack --config webpack.config.prod.js",
+    "deploy": "npm run build && surge ./dist jslaunchpad.davejco.com"
   },
   "author": "David Correa",
   "license": "ISC",
@@ -15,7 +15,9 @@
     "@babel/preset-env": "7.0.0",
     "apply-loader": "2.0.0",
     "babel-loader": "8.0.0",
+    "clean-webpack-plugin": "0.1.19",
     "css-loader": "^0.28.11",
+    "favicons-webpack-plugin": "0.0.9",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "^3.2.0",
     "mini-css-extract-plugin": "0.4.1",
