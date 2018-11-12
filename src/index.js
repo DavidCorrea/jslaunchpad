@@ -2,9 +2,20 @@ import Launchpad from './launchpad';
 
 let buttonsToPlayWith = [
     {column: 1, row: 1}, 
-    {column: 8, row: 1}, 
+    {column: 2, row: 2},
+    {column: 3, row: 3},
+
+    {column: 8, row: 1},
+    {column: 7, row: 2},
+    {column: 6, row: 3},
+
     {column: 8, row: 8},
-    {column: 1, row: 8}
+    {column: 7, row: 7},
+    {column: 6, row: 6},
+
+    {column: 1, row: 8},
+    {column: 2, row: 7},
+    {column: 3, row: 6}
 ];
 
 navigator.requestMIDIAccess().then((midiAccess) => {
