@@ -22,11 +22,11 @@ class Launchpad {
     };
 
     changeButtonColorToAmber(rowAndColumn) {
-        this._changeButtonColor(rowAndColumn, greenButtonCode);
+        this._changeButtonColor(rowAndColumn, amberButtonCode);
     };
 
     changeButtonColorToGreen(rowAndColumn) {
-        this._changeButtonColor(rowAndColumn, amberButtonCode);
+        this._changeButtonColor(rowAndColumn, greenButtonCode);
     };
 
     turnOffButtonAt(rowAndColumn) {

@@ -1,27 +1,10 @@
 import Launchpad from './launchpad';
 
-window.AudioContext = window.AudioContext || window.webkitAudioContext;
-const audioContext = new AudioContext();
-
 let buttonsToPlayWith = [
     {column: 1, row: 1}, 
     {column: 8, row: 1}, 
     {column: 8, row: 8},
     {column: 1, row: 8}
-];
-
-let buttonsToPlayWith2 = [
-    {column: 2, row: 1}, 
-    {column: 8, row: 2}, 
-    {column: 7, row: 8},
-    {column: 1, row: 7}
-];
-
-let buttonsToPlayWith3 = [
-    {column: 3, row: 1}, 
-    {column: 8, row: 3}, 
-    {column: 6, row: 8},
-    {column: 1, row: 6}
 ];
 
 navigator.requestMIDIAccess().then((midiAccess) => {
@@ -34,39 +17,25 @@ navigator.requestMIDIAccess().then((midiAccess) => {
     });
 
     Array.from(inputs.values()).forEach((midiInput) => {
-        midiInput.onmidimessage = (midiMessage) => {
-            let midiData = midiMessage.data;
-            let midiDataVelocity = midiData[2];
+        if(midiInput.name === 'LPK25 MIDI 1') {
+            midiInput.onmidimessage = (midiMessage) => {
 
-            if(midiDataVelocity === 127) {
-                // buttonsToPlayWith.forEach((button) => launchpad.changeButtonColorToRed(button));
+                let midiMessageData = midiMessage.data;
+                let midiMessageEvent = midiMessageData[0];
+                let midiMessageVelocity = midiMessageData[2];
 
-                setInterval(() => { 
-                    buttonsToPlayWith.forEach((button) => launchpad.changeButtonColorToRed(button)); 
-
-                    setTimeout(() => { 
-                        buttonsToPlayWith2.forEach((button) => launchpad.changeButtonColorToGreen(button));
-
-                        setTimeout(() => { 
-                            buttonsToPlayWith2.forEach((button) => launchpad.turnOffButtonAt(button));
-                        }, 250);
-                    }, 250);
-
-                    setTimeout(() => { 
-                        buttonsToPlayWith3.forEach((button) => launchpad.changeButtonColorToAmber(button));
-
-                        setTimeout(() => { 
-                            buttonsToPlayWith3.forEach((button) => launchpad.turnOffButtonAt(button));
-                        }, 250);
-                    }, 500);
-
-                    setTimeout(() => { 
-                        buttonsToPlayWith.forEach((button) => launchpad.turnOffButtonAt(button));
-                    }, 250);
-                }, 750);
-            } else if(midiDataVelocity === 0) {
-                // buttonsToPlayWith.forEach((button) => launchpad.turnOffButtonAt(button));
+                if(midiMessageEvent === 144) {
+                    if(midiMessageVelocity < 50) {
+                        buttonsToPlayWith.forEach((button) => launchpad.changeButtonColorToGreen(button));
+                    } else if(midiMessageVelocity >= 50 && midiMessageVelocity <= 100) {
+                        buttonsToPlayWith.forEach((button) => launchpad.changeButtonColorToYellow(button));
+                    } else if(midiMessageVelocity > 100) {
+                        buttonsToPlayWith.forEach((button) => launchpad.changeButtonColorToRed(button));
+                    }
+                } else if(midiMessageEvent === 128) {
+                    buttonsToPlayWith.forEach((button) => launchpad.turnOffButtonAt(button));
+                }
             }
-        };
+        }
     });
 });
